@@ -2,7 +2,6 @@
 3D RPG Godot 3.4
 12.11.21
 
-Description
 Game where you hit enemies and find the high poly material
 
 ## Implementation
@@ -19,8 +18,11 @@ Game where you hit enemies and find the high poly material
 
 ## References
 Jason Francis
+
 Blender 2.9
+
 Godot 3.4
+
 Textures and HDRI from https://ambientcg.com/
 
 ## Future Development
