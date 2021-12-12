@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Assets/Key.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Marble012_2K_Roughness.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Marble012_2K_Color.png" type="Texture" id=3]
+
+[sub_resource type="SpatialMaterial" id=3]
+albedo_texture = ExtResource( 3 )
+roughness_texture = ExtResource( 2 )
+
+[node name="Key" type="Spatial"]
+script = ExtResource( 1 )
+
+[node name="CSGSphere" type="CSGSphere" parent="."]
+calculate_tangents = false
+material = SubResource( 3 )

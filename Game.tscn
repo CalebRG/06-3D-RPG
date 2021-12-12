@@ -1,19 +1,62 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Menu.gd" type="Script" id=2]
 [ext_resource path="res://Enemy/Enemy.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Assets/hilly_terrain_01_2k.exr" type="Texture" id=4]
+[ext_resource path="res://Assets/terrain1.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Assets/Door.gd" type="Script" id=6]
+[ext_resource path="res://Assets/Dialogue.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Player/NPC.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Player/Key.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Assets/wow.png" type="Texture" id=10]
+
+[sub_resource type="PanoramaSky" id=1]
+panorama = ExtResource( 4 )
+
+[sub_resource type="Environment" id=2]
+background_mode = 2
+background_sky = SubResource( 1 )
+background_color = Color( 0.596078, 0.972549, 0.956863, 1 )
+fog_enabled = true
+
+[sub_resource type="SpatialMaterial" id=3]
+albedo_color = Color( 0.423529, 0.423529, 0.423529, 1 )
+
+[sub_resource type="CapsuleShape" id=4]
+radius = 4.87606
+
+[sub_resource type="CapsuleShape" id=5]
+radius = 4.15871
+height = 0.002
 
 [node name="Game" type="Spatial"]
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.04709, 1.5318, -0.062501 )
-
-[node name="CSGBox" type="CSGBox" parent="."]
-transform = Transform( 10.139, 0, 0, 0, 0.132974, 0, 0, 0, 10.139, 0.0010128, -0.152696, -0.0428386 )
-use_collision = true
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.97395, 1.5318, 24.7601 )
+collision_mask = 3
 
 [node name="UI" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="UI"]
+margin_right = 1022.0
+margin_bottom = 27.0
+color = Color( 0, 0, 0, 0.333333 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Score" type="Label" parent="UI"]
+margin_left = 10.5946
+margin_top = 8.47571
+margin_right = 50.5946
+margin_bottom = 22.4757
+text = "Score:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Dialogue" parent="UI" instance=ExtResource( 7 )]
 
 [node name="Menu" type="Control" parent="UI"]
 pause_mode = 2
@@ -47,22 +90,99 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Score" type="Label" parent="UI"]
-margin_right = 40.0
-margin_bottom = 14.0
-text = "Score:"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="terrain1" parent="." instance=ExtResource( 5 )]
 
-[node name="Enemy" parent="." instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.844001, 1.80399, 6.36521 )
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 2 )
 
-[node name="Enemy2" parent="." instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.34858, 1.80399, 6.36521 )
+[node name="Collisions" type="Spatial" parent="."]
 
-[node name="Enemy3" parent="." instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.1168, 1.80399, 6.36521 )
+[node name="CSGBox" type="CSGBox" parent="Collisions"]
+transform = Transform( 34.6778, 0, 0, 0, 0.132974, 0, 0, 0, 10.139, 0.0010128, -0.152696, -0.0428386 )
+visible = false
+use_collision = true
+depth = 11.6664
+
+[node name="CSGBox2" type="CSGBox" parent="Collisions"]
+transform = Transform( -0.10289, -0.132973, 0, 9.08381, -0.000103349, 0, 0, 0, 3.8034, 20.11, -0.152696, 2.75741 )
+visible = false
+use_collision = true
+depth = 11.6664
+
+[node name="CSGBox4" type="CSGBox" parent="Collisions"]
+transform = Transform( -0.10289, -0.132973, 0, 9.08381, -0.000103349, 0, 0, 0, 3.8034, -22.3819, -0.152696, 2.75741 )
+visible = false
+use_collision = true
+depth = 11.6664
+
+[node name="CSGBox5" type="CSGBox" parent="Collisions"]
+transform = Transform( -0.000486652, -0.000628938, 3.80335, 9.08381, -0.000103349, 0, 0.102889, 0.132972, 0.0179893, -31.652, -0.152696, 34.0753 )
+visible = false
+use_collision = true
+depth = 11.6664
+
+[node name="CSGBox6" type="CSGBox" parent="Collisions"]
+transform = Transform( -0.000486652, -0.000628938, 3.80335, 9.08381, -0.000103349, 0, 0.102889, 0.132972, 0.0179893, 29.6723, -0.152696, 34.0753 )
+visible = false
+use_collision = true
+depth = 11.6664
+
+[node name="CSGBox3" type="CSGBox" parent="Collisions"]
+transform = Transform( 0.000353765, 0.000457199, 3.80337, 9.08381, -0.000103349, 0, 0.10289, 0.132973, -0.0130771, -0.702595, 1.3026, -20.1403 )
+visible = false
+use_collision = true
+depth = 11.6664
+
+[node name="Enemies" type="Spatial" parent="."]
+
+[node name="Enemy" parent="Enemies" instance=ExtResource( 3 )]
+transform = Transform( -0.987267, 0, -0.159071, 0, 1, 0, 0.159071, 0, -0.987267, 0.844001, 1.80399, -14.3824 )
+
+[node name="Enemy2" parent="Enemies" instance=ExtResource( 3 )]
+transform = Transform( -0.569265, 0, -0.822154, 0, 1, 0, 0.822154, 0, -0.569265, -17.0831, 1.80399, -12.0443 )
+
+[node name="Enemy3" parent="Enemies" instance=ExtResource( 3 )]
+transform = Transform( -0.616734, 0, 0.787172, 0, 1, 0, -0.787172, 0, -0.616734, 14.8736, 1.80399, -9.59881 )
+
+[node name="Enemy4" parent="Enemies" instance=ExtResource( 3 )]
+transform = Transform( -0.996793, 0, 0.080025, 0, 1, 0, -0.080025, 0, -0.996793, 5.97219, 1.80399, -3.12297 )
+
+[node name="Enemy5" parent="Enemies" instance=ExtResource( 3 )]
+transform = Transform( -0.996793, 0, 0.080025, 0, 1, 0, -0.080025, 0, -0.996793, -6.54968, 1.80399, -3.12297 )
+
+[node name="Door" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.07937, 8.38768, 34.5622 )
+use_collision = true
+width = 16.9944
+height = 18.2956
+material = SubResource( 3 )
+script = ExtResource( 6 )
+
+[node name="NPC" parent="." instance=ExtResource( 8 )]
+transform = Transform( -0.918702, 0, -0.394952, 0, 1, 0, 0.394952, 0, -0.918702, 5.36046, 1.9685, 29.31 )
+
+[node name="Area" type="Area" parent="NPC"]
+
+[node name="CollisionShape" type="CollisionShape" parent="NPC/Area"]
+transform = Transform( 0.999997, -0.00169264, 0.0015035, 0.00169126, 0.999998, 0.000920378, -0.00150514, -0.000917837, 0.999999, 0, 0, 0 )
+shape = SubResource( 4 )
+
+[node name="Key" parent="." instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7065, 45.5785 )
+
+[node name="Area" type="Area" parent="Key"]
+collision_layer = 2
+
+[node name="CollisionShape" type="CollisionShape" parent="Key/Area"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.153462, 2.264, 0.362194 )
+shape = SubResource( 5 )
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform( -0.993128, 0.00304799, -0.116997, 0.00298973, 0.999995, 0.000673469, 0.116998, 0.000319041, -0.993132, 0, 11.5808, 46.8695 )
+texture = ExtResource( 10 )
 
 [connection signal="pressed" from="UI/Menu/Quit" to="UI/Menu" method="_on_Quit_pressed"]
 [connection signal="pressed" from="UI/Menu/Reload" to="UI/Menu" method="_on_Reload_pressed"]
+[connection signal="body_entered" from="NPC/Area" to="NPC" method="_on_Area_body_entered"]
+[connection signal="body_exited" from="NPC/Area" to="NPC" method="_on_Area_body_exited"]
+[connection signal="body_entered" from="Key/Area" to="Key" method="_on_Area_body_entered"]
